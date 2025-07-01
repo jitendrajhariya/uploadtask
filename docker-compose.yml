@@ -1,0 +1,20 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  app1:
+    build:
+      context: ./app1
+    depends_on:
+      - rabbitmq
+
+  app2:
+    build:
+      context: ./app2
+    depends_on:
+      - rabbitmq
+    deploy:
+      replicas: 5
